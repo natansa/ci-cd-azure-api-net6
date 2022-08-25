@@ -1,0 +1,34 @@
+pool:
+  vmImage: ubuntu-latest
+trigger: 
+  - main
+variables: 
+  - group: Azure-credentials
+
+stages:
+  - stage: teste
+    displayName: Teste App .Net 6
+    jobs:
+      - job: teste
+        displayName: Teste App .Net 6
+        steps:
+          - script: echo "dotnet test"
+            displayName: Teste App .Net 6
+
+  - stage: build
+    displayName: Build App .Net 6
+    jobs:
+      - job: build
+        displayName: Build App .Net 6
+        steps:
+          - script: echo "dotnet build -c Release -o ./artefatos"
+            displayName: Build App .Net 6
+
+  - stage: deploy
+    displayName: Deploy App .Net 6
+    jobs:
+      - job: deploy
+        displayName: Deploy App .Net 6
+        steps:
+          - script: echo "dotnet publish -c Release -o ./develop"
+            displayName: Deploy App .Net 6
